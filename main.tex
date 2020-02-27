@@ -11,6 +11,8 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{indentfirst}
 \usepackage{hyperref}
+% Define emphasis
+\DeclareTextFontCommand{\emph}{\bfseries\em}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -82,7 +84,7 @@
 	Se ritieni di poter migliorare la guida, oppure se sono state aggiunte altre domande al di fuori di questo file, o se hai trovato un errore, visita la repository GitHub ed apri una \textit{issue}, oppure inviami un messaggio. Ogni contributo è ben accetto :)
 	
 	\vspace{4mm}
-	Link Repository: \url{https://github.com/TryKatChup?tab=repositories}
+	Link Repository: \url{https://github.com/TryKatChup/SistemiOperativi_QA}
 	
 	\vspace{5mm}
 	
@@ -127,8 +129,8 @@ L’immagine di un processo è l’insieme delle aree di memoria e delle struttu
     \end{itemize}
     \item In base alla \textbf{accessibilità}:
     \begin{itemize}
-        \item \emph{Kernel}: parte di immagine che viene eseguita solo dal sistema operativo in modalità kernel
-        \item \emph{User}: parte di immagine eseguibile e modificabile dall’utente 
+        \item \emph{Kernel}: parte di immagine che viene eseguita solo dal sistema operativo in modalità kernel;
+        \item \emph{User}: parte di immagine eseguibile e modificabile dall’utente.
     \end{itemize}
 \end{itemize}
 L’immagine viene divisa in sotto parti:
@@ -223,7 +225,7 @@ La pipe ha le seguenti caratteristiche:
 \begin{itemize}
     \item Unidirezionale, accessibile da un lato di lettura e dall’altro di scrittura.
     \item Più processi della stessa famiglia possono spedire e ricevere messaggi attraverso la stessa pipe.
-    \item Ha una capacità limitata, e i messaggi al suo interno vengono gestiti con politica \textit{FIFO} (First in-first out).
+    \item Ha una capacità limitata, e i messaggi al suo interno vengono gestiti con politica \textit{FIFO} (First In First Out).
     \item La comunicazione tramite pipe risulta essere \textbf{asincrona}.
 \end{itemize}
 Per creare una pipe si utilizza la seguente primitiva:
@@ -241,7 +243,7 @@ Per accedere al lato di lettura della pipe viene utilizzata la system call \text
 \newline
 La comunicazione tramite \textit{pipe} presenta principalmente due svantaggi:
 \begin{enumerate}
-    \item La comunicazione avviene tra processi della stessa famiglia ;
+    \item La comunicazione avviene tra processi della stessa famiglia;
     \item Non è persistente: viene distrutta quando terminano tutti i processi che la utilizzano.
 \end{enumerate}
 La comunicazione tra processi può avvenire anche tramite \textit{fifo}; ha le stesse funzioni della pipe, con il vantaggio che ha validità su tutti i processi in esecuzione sulla macchina.
@@ -290,7 +292,7 @@ Unix mette a disposizione alcune strutture dati fondamentali per la gestione dei
 \begin{itemize}
     \item \emph{Tabella dei file aperti di processo}: è una tabella situata nella user area di ogni processo, contiene una entry per ogni file aperto da quello specifico processo;
     \item \emph{Tabella dei file aperti di sistema}: è una tabella di sistema che contiene una entry per ogni file aperto, ma non ancora chiuso. Contiene anche l’IO-Pointer che indica la posizione corrente all’interno del file;
-    \item \emph{Tabella dei file attivi}: è una tabella di sistema che contiene tutti i descrittori dei file aperti nel sistema (detti anche i-node) 
+    \item \emph{Tabella dei file attivi}: è una tabella di sistema che contiene tutti i descrittori dei file aperti nel sistema (detti anche i-node).
 \end{itemize}
 Quando un file viene aperto con \texttt{open()}:
 \begin{enumerate}
@@ -385,7 +387,7 @@ Per riconoscere gli elementi significativi della tabella delle pagine viene util
 I principali vantaggi di questa tecnica sono:
 \begin{itemize}
     \item Eliminazione della frammentazione esterna poiché pagine logiche contigue possono essere mappate su frame fisici non contigui;
-    \item Riduzione della frammentazione interna poiché limitata dalla dimensione dei frame.
+    \item Riduzione della frammentazione interna poiché limitata dalla dimensione dei frame;
     \item Possibilità di caricamento in memoria di un sottoinsieme delle pagine logiche di un processo.
 \end{itemize}
 Uno svantaggio è la complessità del codice che implementa il paging.
@@ -477,11 +479,11 @@ Non sempre è necessario spostare la pagina individuata: nel caso in cui questa 
 \newline
 Ci sono diversi algoritmi il cui scopo è capire quale pagina sia la migliore da deallocare:
 \begin{itemize}
-    \item LFU (Least Frequently Used): dealloca la pagina usata meno di frequente.\newline
+    \item \emph{LFU} (Least Frequently Used): dealloca la pagina usata meno di frequente.\newline
     Per questa tecnica è necessario introdurre un contatore, che tenga conto del numero di accessi per ogni pagina.
-    \item FIFO: dealloca la pagina caricata da più tempo (indipendentemente dal suo uso).
+    \item \emph{FIFO}: dealloca la pagina caricata da più tempo (indipendentemente dal suo uso).
 In questo caso occorre memorizzare la cronologia dei caricamenti in memoria, o gestire una coda in cui ogni elemento rappresenta una pagina caricata in memoria.
-    \item LRU (Least Recently Used): dealloca la pagina usata meno di recente.
+    \item \emph{LRU} (Least Recently Used): dealloca la pagina usata meno di recente.
 \end{itemize}
 Occorre memorizzare la sequenza degli accessi alle pagine in memoria; viene utilizzato o un time stamping per ciascun elemento della tabella delle pagine, che rappresenta l’istante dell’ultimo accesso in memoria, oppure uno stack, in cui il bottom rappresenta la pagina LRU.
 \newline
@@ -512,41 +514,41 @@ Sono presenti varie tecniche di allocazione nel file system:
     \newline
     Vantaggi:
     \begin{enumerate}
-        \item possibilità di accedere sia in modo sequenziale che diretto;
-        \item  basso costo sulla ricerca di un blocco.
+        \item Possibilità di accedere sia in modo sequenziale che diretto;
+        \item Basso costo sulla ricerca di un blocco.
     \end{enumerate}
     Svantaggi:
     \begin{enumerate}
-        \item frammentazione esterna con necessità di compattazione (deframmentazione)
-        \item aumento dinamico della dimensione di un file.
+        \item Frammentazione esterna con necessità di compattazione (deframmentazione)
+        \item Aumento dinamico della dimensione di un file.
     \end{enumerate}
     \item \emph{Allocazione a lista concatenata}: i blocchi nei quali viene mappato ogni file sono organizzati in una lista concatenata.
     \newline
     \newline
   Vantaggi:
   \begin{enumerate}
-      \item risolto il problema della frammentazione esterna;
-      \item minor costo di allocazione.
+      \item Risolto il problema della frammentazione esterna;
+      \item Minor costo di allocazione.
   \end{enumerate}
   Svantaggi:
   \begin{enumerate}
-      \item possibili errori in caso di link danneggiati;
-      \item maggior occupazione a causa dei puntatori;
-      \item alto costo nella ricerca.
+      \item Possibili errori in caso di link danneggiati;
+      \item Maggior occupazione a causa dei puntatori;
+      \item Alto costo nella ricerca.
   \end{enumerate}
   \item \emph{Allocazione a indice}: i puntatori ai blocchi in cui il file è mappato sono contenuti in un unico blocco (blocco a indice).
   \newline
   \newline
   Vantaggi:
   \begin{enumerate}
-      \item risolto il problema della frammentazione esterna;
-      \item minor costo di allocazione;
-      \item accesso diretto;
-      \item maggiore velocità di accesso.
+      \item Risolto il problema della frammentazione esterna;
+      \item Minor costo di allocazione;
+      \item Accesso diretto;
+      \item Maggiore velocità di accesso.
   \end{enumerate}
   Svantaggi:
   \begin{enumerate}
-      \item scarso utilizzo dei blocchi a indice in caso di file di piccole dimensioni.
+      \item Scarso utilizzo dei blocchi a indice in caso di file di piccole dimensioni.
   \end{enumerate}
 \end{itemize} 
 \end{solution}
@@ -566,10 +568,10 @@ A ogni file possono essere associati uno o più nomi simbolici ma un solo descri
 \newline
 L’i-node contiene gli attributi dei file, come:
 \begin{itemize}
-    \item tipo di file;
-    \item proprietario;
-    \item data;
-    \item numero di link.
+    \item Tipo di file;
+    \item Proprietario;
+    \item Data;
+    \item Numero di link.
 \end{itemize}
 La superficie del disco dove risiede il File System è partizionata in 4 blocchi:
 \begin{itemize}
@@ -680,7 +682,7 @@ L’accesso alla risorsa avviene mediante due livelli di sincronizzazione:
     \newline
     Se la condizione non è soddisfatta, il processo viene sospeso nella condition queue associata alla condizione.
     \newline
-    La realizzazione avviene tramite la variabile \textit{condizione} (Condition) 
+    La realizzazione avviene tramite la variabile \textit{condizione} (condition) 
 \end{enumerate}
 La variabile condizione è necessaria solo all’interno del monitor e rappresenta la coda nella quale i processi sospendono la propria esecuzione.
 \newline
@@ -805,13 +807,13 @@ Viene definito processo esterno un processo svolto da un’interfaccia fisica ch
 \newline
 Normalmente, questo dispositivo è nello stato di stand-by, in attesa che il bit di start del proprio registro di controllo venga impostato a 1.
 \newline
-Una volta attivato, il dispositivo esegue il comando e, una volta completato, registra questo evento nel registro di stato ponendo a 1 il corrispondente bit di flag. Quindi riparte da capo rimettendosi in attesa.
+Una volta attivato, il dispositivo esegue il comando e, una volta completato, segnala l'evento nel registro di stato, ponendo a 1 il corrispondente bit di flag; dopodichè riparte da capo, rimettendosi in attesa.
 \newline
 \newline
 \textbf{Gestione a controllo di programma}:
 \begin{itemize}
-    \item Esecuzione del processo esterno: Il processo esterno dell’interfaccia attende l’invio di un comando tramite il registro di controllo. Quando il bit di start in questo registro viene impostato a 1, il dispositivo esegue il comando inviato e segnala la sua fine tramite il registro di stato con un bit di flag a 1.
-    \item Esecuzione del processo applicativo: il processo applicativo prepara il comando e lo invia impostando contemporaneamente il bit di start a 1; dopodichè attende la fine del comando, segnalato dal bit di flag con valore 1.
+    \item Esecuzione del processo esterno: il processo esterno dell’interfaccia attende l’invio di un comando tramite il registro di controllo. Quando il bit di start in questo registro viene impostato a 1, il dispositivo esegue il comando inviato e segnala la sua fine tramite il registro di stato con un bit di flag a 1.
+    \item Esecuzione del processo applicativo: il processo applicativo prepara il comando e lo invia, impostando contemporaneamente il bit di start a 1; dopodichè attende la fine del comando, segnalato dal bit di flag con valore 1.
     \newline
     Tale schema risulta inappropriato per sistemi multiprogrammati a causa dei cicli di attesa attiva, nei quali i processi sono schedulati e utilizzano tempo utile della CPU.
 \end{itemize}
@@ -819,7 +821,7 @@ Una volta attivato, il dispositivo esegue il comando e, una volta completato, re
 \newline
 L’obiettivo è quello di risolvere il problema dell’attesa attiva.
 \newline
-In questa modalità di gestione, si riserva ad ogni dispositivo un semaforo: quando questo diventa verde, si attiva il dispositivo, abilitandolo a interrompere l’esecuzione della CPU (ponendo nel registro di controllo il bit di abilitazione a 1).
+In questa modalità di gestione, si riserva ad ogni dispositivo un semaforo: quando diventa verde, si attiva il dispositivo, abilitandolo a interrompere l’esecuzione della CPU (ponendo nel registro di controllo il bit di abilitazione a 1).
 \newline
 Quando si verifica la transizione del flag da zero a uno il controllore interrompe la CPU, che risponde con una funzione di gestione delle interruzioni del dispositivo.
 \end{solution}
