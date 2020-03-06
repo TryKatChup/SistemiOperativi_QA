@@ -106,9 +106,9 @@ In questo modello, i processi interagiscono tra loro per \textit{chiamate a proc
 \newline
 Presenta diversi svantaggi: il sistema operativo è complesso e con questa organizzazione risulta:
 \begin{itemize}
-    \item Difficile da mantenere;
-    \item Meno portabile;
-    \item Meno efficiente.
+    \item difficile da mantenere;
+    \item meno portabile;
+    \item meno efficiente.
 \end{itemize}
 Nel modello a microkernel il sistema operativo possiede un ridottissimo nucleo (\textit{kernel}) con poche funzionalità di base, e si interfaccia direttamente con l’hardware.
 \newline
@@ -187,10 +187,10 @@ Il \textit{Process Control Block} (PCB) è una struttura dati del nucleo del sis
     Più process structure costituiscono la \textit{process table}. 
     \item \emph{User structure}: contiene le informazioni necessarie solo se il processo è residente in memoria centrale, in particolare:
     \begin{itemize}
-        \item Registri CPU;
-        \item Informazioni sulle risorse allocate;
-        \item Informazioni sulla gestione dei segnali;
-        \item Ambiente del processo
+        \item registri CPU;
+        \item informazioni sulle risorse allocate;
+        \item informazioni sulla gestione dei segnali;
+        \item ambiente del processo.
     \end{itemize}
 \end{itemize}
 \end{solution}
@@ -207,11 +207,11 @@ Il sistema operativo esegue le system call in modalità \textit{kernel}. Quando 
 \newline
 Quando un processo tenta di eseguire un’istruzione privilegiata:
 \begin{itemize}
-    \item Viene inviata un’interruzione al sistema operativo; 
-    \item Si salva lo stato del programma chiamante; 
-    \item Si trasferisce il controllo al sistema operativo;
-    \item Il sistema operativo esegue in modalità kernel l’istruzione richiesta; 
-    \item Una volta completata la richiesta, il controllo viene passato nuovamente al programma chiamante, che continua a eseguire istruzioni in modalità user.
+    \item viene inviata un’interruzione al sistema operativo; 
+    \item si salva lo stato del programma chiamante; 
+    \item si trasferisce il controllo al sistema operativo;
+    \item il sistema operativo esegue in modalità kernel l’istruzione richiesta; 
+    \item una volta completata la richiesta, il controllo viene passato nuovamente al programma chiamante, che continua a eseguire istruzioni in modalità user.
 \end{itemize}
 \end{solution}
 \begin{problem}{5}
@@ -223,10 +223,10 @@ La comunicazione tra processi in Unix è vincolata dal fatto che i dati non sono
 I processi, quindi, per comunicare tra loro possono ricorrere alla \textit{pipe}, un canale di comunicazione tra processi.
 La pipe ha le seguenti caratteristiche:
 \begin{itemize}
-    \item Unidirezionale, accessibile da un lato di lettura e dall’altro di scrittura.
-    \item Più processi della stessa famiglia possono spedire e ricevere messaggi attraverso la stessa pipe.
-    \item Ha una capacità limitata, e i messaggi al suo interno vengono gestiti con politica \textit{FIFO} (First In First Out).
-    \item La comunicazione tramite pipe risulta essere \textbf{asincrona}.
+    \item unidirezionale, accessibile da un lato di lettura e dall’altro di scrittura;
+    \item più processi della stessa famiglia possono spedire e ricevere messaggi attraverso la stessa pipe;
+    \item ha una capacità limitata, e i messaggi al suo interno vengono gestiti con politica \textit{FIFO} (First In First Out);
+    \item la comunicazione tramite pipe risulta essere \textbf{asincrona}.
 \end{itemize}
 Per creare una pipe si utilizza la seguente primitiva:
 \begin{center}
@@ -243,7 +243,7 @@ Per accedere al lato di lettura della pipe viene utilizzata la system call \text
 \newline
 La comunicazione tramite \textit{pipe} presenta principalmente due svantaggi:
 \begin{enumerate}
-    \item La comunicazione avviene tra processi della stessa famiglia;
+    \item La comunicazione avviene tra processi della stessa famiglia.
     \item Non è persistente: viene distrutta quando terminano tutti i processi che la utilizzano.
 \end{enumerate}
 La comunicazione tra processi può avvenire anche tramite \textit{fifo}; ha le stesse funzioni della pipe, con il vantaggio che ha validità su tutti i processi in esecuzione sulla macchina.
@@ -296,19 +296,19 @@ Unix mette a disposizione alcune strutture dati fondamentali per la gestione dei
 \end{itemize}
 Quando un file viene aperto con \texttt{open()}:
 \begin{enumerate}
-    \item Viene inserito un nuovo elemento (file descriptor) all’interno della tabella dei file aperti di  processo nella prima posizione libera;
-    \item Viene inserito un nuovo record nella tabella dei file aperti di sistema;
+    \item Viene inserito un nuovo elemento (file descriptor) all’interno della tabella dei file aperti di  processo nella prima posizione libera.
+    \item Viene inserito un nuovo record nella tabella dei file aperti di sistema.
     \item Viene copiato l’i-node all’interno della tabella dei file attivi se il file non è già usato.
 \end{enumerate}
 Quando un file viene chiuso con \texttt{close()}:
 \begin{enumerate}
-    \item Viene eliminato l’elemento corrispondente al file descriptor nella tabella dei file aperti;
-    \item Viene eliminato il corrispondente record nella tabella di file aperti di sistema (se il file non è condiviso con altri processi);
+    \item Viene eliminato l’elemento corrispondente al file descriptor nella tabella dei file aperti.
+    \item Viene eliminato il corrispondente record nella tabella di file aperti di sistema (se il file non è condiviso con altri processi).
     \item Viene eliminato l’i-node nella tabella dei file attivi (se il file non è condiviso con altri processi).
 \end{enumerate}
 Quando viene effettuata una lettura/scrittura da/su file con \texttt{read()}/\texttt{write()}:
 \begin{enumerate}
-    \item Accesso al file tramite file descriptor;
+    \item Accesso al file tramite file descriptor.
     \item Attesa del completamento dell’operazione.
 \end{enumerate}
 \end{solution}
@@ -318,7 +318,7 @@ Descrivere le tecniche di allocazione della memoria centrale.
 \begin{solution}
 Esistono due metodi di allocazione di codice e dati di un processo in memoria centrale:
 \begin{enumerate}
-    \item Allocazione contigua;
+    \item Allocazione contigua.
     \item Allocazione non contigua.
 \end{enumerate} 
 L’allocazione \textit{contigua} presenta varie modalità:
@@ -355,7 +355,7 @@ Descrivere la paginazione.
 \begin{solution}
 La paginazione consiste nel partizionamento dello spazio fisico di memoria in cornici (frame) di dimensione \textit{costante} e \textit{limitata} nelle quali mappare porzioni dei processi da allocare. Si ha una distinzione tra lo spazio fisico e quello logico: 
 \begin{itemize}
-    \item Fisico: costituito da frame, di dimensioni $D_f$ costanti e prefissate
+    \item Fisico: costituito da frame, di dimensioni $D_f$ costanti e prefissate.
     \item Logico: insieme di pagine di dimensione uguale a $D_f$. 
 \end{itemize}
 Ogni pagina logica viene mappata su una pagina fisica in memoria centrale.
@@ -383,12 +383,12 @@ Per distinguere gli elementi significativi da quelli non utilizzati si ricorre a
     \item 1: la entry è valida, quindi la pagina appartiene allo spazio logico del processo.
     \item 0: la entry non è valida.
 \end{itemize}
-Per riconoscere gli elementi significativi della tabella delle pagine viene utilizzato anche il \textbf{Page Table Legth Register}, che contiene il numero degli elementi validi nella tabella delle pagine.
+Per riconoscere gli elementi significativi della tabella delle pagine viene utilizzato anche il \textbf{Page Table Legth Register}, che contiene il numero degli elementi validi nella tabella delle pagine.\newline
 I principali vantaggi di questa tecnica sono:
 \begin{itemize}
-    \item Eliminazione della frammentazione esterna poiché pagine logiche contigue possono essere mappate su frame fisici non contigui;
-    \item Riduzione della frammentazione interna poiché limitata dalla dimensione dei frame;
-    \item Possibilità di caricamento in memoria di un sottoinsieme delle pagine logiche di un processo.
+    \item eliminazione della frammentazione esterna poiché pagine logiche contigue possono essere mappate su frame fisici non contigui;
+    \item riduzione della frammentazione interna poiché limitata dalla dimensione dei frame;
+    \item possibilità di caricamento in memoria di un sottoinsieme delle pagine logiche di un processo.
 \end{itemize}
 Uno svantaggio è la complessità del codice che implementa il paging.
 \end{solution}
@@ -405,8 +405,8 @@ Ogni segmento è allocato in memoria in modo contiguo, ed è possibile applicare
 \newline
 L’indirizzo logico è formato da:
 \begin{itemize}
-    \item Numero: identificativo del segmento
-    \item Offset: identificativo della cella di memoria nel segmento
+    \item Numero: identificativo del segmento.
+    \item Offset: identificativo della cella di memoria nel segmento.
 \end{itemize}
 L’indirizzo fisico è invece formato da:
 \begin{itemize}
@@ -436,10 +436,10 @@ Nell’accesso ad ogni indirizzo di una pagina si consulta il suo bit di validit
 \newline
 Non sempre è presente spazio libero in memoria centrale: quando ciò accade è necessario scegliere una pagina da deallocare per far posto alla nuova pagina necessaria. 
 \newline
-Ci sono diversi algoritmi il cui scopo è capire quale pagina sia più corretto deallocare.
+Ci sono diversi algoritmi il cui scopo è capire quale pagina sia più corretto deallocare:
 \begin{itemize}
-    \item \emph{LFU} (Least Frequently Used): dealloca la pagina usata meno di frequente;
-    \item \emph{FIFO}: dealloca la pagina caricata da più tempo;
+    \item \emph{LFU} (Least Frequently Used): dealloca la pagina usata meno di frequente.
+    \item \emph{FIFO}: dealloca la pagina caricata da più tempo.
     \item \emph{LRU} (Least Recently Used): dealloca la pagina usata meno di recente.
 \end{itemize}
 \end{solution}
@@ -454,11 +454,11 @@ Quando il sistema operativo riceve l’interruzione effettua i seguenti passaggi
     \item Salva lo stato del contesto di esecuzione del processo;
     \item Verifica il motivo del Page Fault:
     \begin{itemize}
-        \item Riferimento illegale: violazione delle politiche di protezione e terminazione del processo;
+        \item Riferimento illegale: violazione delle politiche di protezione e terminazione del processo.
         \item Riferimento legale: la pagina è memorizzata in memoria secondaria.
     \end{itemize}
-    \item Copia la pagina dalla memoria secondaria in un frame libero della memoria centrale; nel caso non si trovassero frame liberi si attuerebbe un algoritmo di sovrallocazione, individuando una pagina vittima ed effettuando la sostituzione)
-    \item Aggiorna la tabella delle pagine;
+    \item Copia la pagina dalla memoria secondaria in un frame libero della memoria centrale; nel caso non si trovassero frame liberi si attuerebbe un algoritmo di sovrallocazione, individuando una pagina vittima ed effettuando la sostituzione).
+    \item Aggiorna la tabella delle pagine.
     \item Ripristina il processo, che riparte dall’istruzione interrotta dal page fault.
 \end{enumerate}
 \end{solution}
@@ -472,8 +472,8 @@ Per risolvere questo problema, si ricorre ad algoritmi di sostituzione, che hann
 \newline
 Per rendere più efficiente il trattamento di un page fault in caso di sovrallocazione si introduce in ogni elemento della tabella delle pagine un \textbf{bit di modifica} (dirty bit):
 \begin{itemize}
-    \item Se il dirty bit vale 1, la pagina ha subito un aggiornamento da quando è stata caricata in memoria centrale. 
-    \item Se il dirty bit vale 0, allora la pagina non è stata modificata.
+    \item se il dirty bit vale 1, la pagina ha subito un aggiornamento da quando è stata caricata in memoria centrale;
+    \item se il dirty bit vale 0, allora la pagina non è stata modificata.
 \end{itemize}
 Non sempre è necessario spostare la pagina individuata: nel caso in cui questa non sia stata modificata rispetto alla sua copia in memoria secondaria (dirty bit = 0), il sistema operativo può ridurre i tempi dell’operazione di sostituzione e decidere di eliminarla direttamente, senza doverla trasferire.
 \newline
@@ -497,8 +497,8 @@ Il file system rappresenta la parte di sistema operativo che fornisce i meccanis
 \newline
 Il file system realizza i concetti astratti di:
 \begin{itemize}
-    \item \emph{File}: unità logica di memorizzazione;
-    \item \emph{Directory}: insieme di file e direttori;
+    \item \emph{File}: unità logica di memorizzazione.
+    \item \emph{Directory}: insieme di file e direttori.
     \item \emph{Partizione}: insieme di file associato ad un particolare dispositivo fisico.
 \end{itemize}
 Esistono diversi metodi di accesso messi a disposizione dal file system:
@@ -514,12 +514,12 @@ Sono presenti varie tecniche di allocazione nel file system:
     \newline
     Vantaggi:
     \begin{enumerate}
-        \item Possibilità di accedere sia in modo sequenziale che diretto;
+        \item Possibilità di accedere sia in modo sequenziale che diretto.
         \item Basso costo sulla ricerca di un blocco.
     \end{enumerate}
     Svantaggi:
     \begin{enumerate}
-        \item Frammentazione esterna con necessità di compattazione (deframmentazione)
+        \item Frammentazione esterna con necessità di compattazione (deframmentazione).
         \item Aumento dinamico della dimensione di un file.
     \end{enumerate}
     \item \emph{Allocazione a lista concatenata}: i blocchi nei quali viene mappato ogni file sono organizzati in una lista concatenata.
@@ -527,13 +527,13 @@ Sono presenti varie tecniche di allocazione nel file system:
     \newline
   Vantaggi:
   \begin{enumerate}
-      \item Risolto il problema della frammentazione esterna;
+      \item Risolto il problema della frammentazione esterna.
       \item Minor costo di allocazione.
   \end{enumerate}
   Svantaggi:
   \begin{enumerate}
-      \item Possibili errori in caso di link danneggiati;
-      \item Maggior occupazione a causa dei puntatori;
+      \item Possibili errori in caso di link danneggiati.
+      \item Maggior occupazione a causa dei puntatori.
       \item Alto costo nella ricerca.
   \end{enumerate}
   \item \emph{Allocazione a indice}: i puntatori ai blocchi in cui il file è mappato sono contenuti in un unico blocco (blocco a indice).
@@ -541,9 +541,9 @@ Sono presenti varie tecniche di allocazione nel file system:
   \newline
   Vantaggi:
   \begin{enumerate}
-      \item Risolto il problema della frammentazione esterna;
-      \item Minor costo di allocazione;
-      \item Accesso diretto;
+      \item Risolto il problema della frammentazione esterna.
+      \item Minor costo di allocazione.
+      \item Accesso diretto.
       \item Maggiore velocità di accesso.
   \end{enumerate}
   Svantaggi:
@@ -560,18 +560,18 @@ In Unix tutto è rappresentato come file.
 \newline
 Questi vengono suddidisi in tre categorie: 
 \begin{itemize}
-    \item File ordinari (unità logica di memorizzazione);
-    \item Directory (insieme di file e direttori);
+    \item File ordinari (unità logica di memorizzazione).
+    \item Directory (insieme di file e direttori).
     \item Dispositivi fisici.
 \end{itemize}
 A ogni file possono essere associati uno o più nomi simbolici ma un solo descrittore (i-node) identificato da un i-number (intero).
 \newline
 L’i-node contiene gli attributi dei file, come:
 \begin{itemize}
-    \item Tipo di file;
-    \item Proprietario;
-    \item Data;
-    \item Numero di link.
+    \item tipo di file;
+    \item proprietario;
+    \item data;
+    \item numero di link.
 \end{itemize}
 La superficie del disco dove risiede il File System è partizionata in 4 blocchi:
 \begin{itemize}
@@ -606,13 +606,13 @@ I processi nella ready queue che dovranno essere eseguiti verranno scelti in bas
 \end{enumerate}
 Per classificare un algoritmo di scheduling bisogna tenere in considerazione alcune variabili.  L’obiettivo principale è quello di massimizzare: 
 \begin{itemize}
-    \item Utilizzo di CPU: percentuale media di utilizzo della CPU nell’unità di tempo;
+    \item Utilizzo di CPU: percentuale media di utilizzo della CPU nell’unità di tempo.
     \item Throughput: numero di processi completati nell’unità di tempo.
 \end{itemize}
 Si vuole invece minimizzare:
 \begin{itemize}
-    \item Tempo di attesa: tempo totale trascorso nella coda dei processi pronti;
-    \item Turnaround: tempo di esecuzione di un processo dall’assegnamento della CPU alla sua terminazione;
+    \item Tempo di attesa: tempo totale trascorso nella coda dei processi pronti.
+    \item Turnaround: tempo di esecuzione di un processo dall’assegnamento della CPU alla sua terminazione.
     \item Tempo di risposta: intervallo di tempo tra la sottomissione e l’inizio della prima risposta.
 \end{itemize}
 Gli algoritmi di scheduling sono ulteriormente suddivisi per la scelta del processo più opportuno da risvegliare:
@@ -639,7 +639,7 @@ Gli algoritmi di scheduling sono ulteriormente suddivisi per la scelta del proce
     \newline
     I processi possono muoversi da una coda all’altra, in base alla loro storia:
     \begin{itemize}
-        \item Da priorità bassa ad alta: processi in attesa da molto tempo;
+        \item Da priorità bassa ad alta: processi in attesa da molto tempo.
         \item Da priorità alta a bassa: il processo è stato eseguito per molto tempo.
     \end{itemize}
 \end{itemize} 
@@ -650,11 +650,12 @@ Descrivere i passaggi di sostituzione ed elaborazione nella Shell Bash.
 \begin{solution}
 All’esecuzione di un file script contenente istruzioni eseguibili dalla bash shell, vengono effettuati i seguenti passaggi:
 \begin{enumerate}
-    \item Sostituzione dei comandi: i comandi contenuti tra backquote (\texttt{` `}) vengono eseguiti e sostituiti dal risultato prodotto;
-    \item Sostituzione delle variabili e dei parametri: i nomi delle variabili (\texttt{\$nome}) sono espansi nei valori corrispondenti;
+    \item Sostituzione dei comandi: i comandi contenuti tra backquote (\texttt{` `}) vengono eseguiti e sostituiti dal risultato prodotto.
+    \item Sostituzione delle variabili e dei parametri: i nomi delle variabili (\texttt{\$nome}) sono espansi nei valori corrispondenti.
     \item  Sostituzione dei metacaratteri in nomi di file: i metacaratteri (caratteri speciali a multipla validità come \texttt{*}  \texttt{?}  \texttt{[ ]} ) vengono tradotti in nomi di file.
 \end{enumerate}
-In alcuni casi è necessario far sì che i caratteri speciali non vengano interpretati come tali. Per fare questo si utilizza:
+In alcuni casi è necessario far sì che i caratteri speciali non vengano interpretati come tali.\newline
+Per fare ciò si utilizza:
 \begin{itemize}
     \item \texttt{\textbackslash} (escape): il carattere che segue è considerato come un normale carattere;
     \item \texttt{‘ ‘} (apici singoli): proteggono da qualsiasi espansione;
@@ -667,8 +668,8 @@ Descrivere i Monitor e variabili condizione.
 \begin{solution}
 Il Monitor è un costrutto sintattico che associa un insieme di operazioni entry (o public) ad una struttura dati comune a più processi, ed è realizzato in modo tale che:
 \begin{itemize}
-    \item Le operazioni entry siano le uniche permesse sulla struttura;
-    \item Le operazioni entry siano \textbf{mutuamente esclusive} e quindi un solo processo per volta può essere attivo sul monitor.
+    \item le operazioni entry siano le uniche permesse sulla struttura;
+    \item le operazioni entry siano \textbf{mutuamente esclusive} e quindi un solo processo per volta può essere attivo sul monitor.
 \end{itemize}
 All’interno del monitor vengono dichiarate delle variabili locali che definiscono lo stato della risorsa e sono accessibili dall’interno del monitor o dall’esterno, solo da processi che utilizzano metodi entry.
 \newline
@@ -682,7 +683,7 @@ L’accesso alla risorsa avviene mediante due livelli di sincronizzazione:
     \newline
     Se la condizione non è soddisfatta, il processo viene sospeso nella condition queue associata alla condizione.
     \newline
-    La realizzazione avviene tramite la variabile \textit{condizione} (condition) 
+    La realizzazione avviene tramite la variabile \textit{condizione} (condition). 
 \end{enumerate}
 La variabile condizione è necessaria solo all’interno del monitor e rappresenta la coda nella quale i processi sospendono la propria esecuzione.
 \newline
@@ -761,8 +762,8 @@ Il prologo consiste nel chiedere l’autorizzazione ad ogni processo prima di en
 \newline
 Nell’epilogo, invece, al completamento dell’azione il processo deve eseguire una sequenza di istruzioni per dichiarare libera la sezione critica. Le soluzioni possono essere:
 \begin{itemize}
-    \item \emph{Algoritmiche}: non si richiedono particolari meccanismi di sincronizzazione, si sfrutta la possibilità di condividere variabili che indicano lo stato della risorsa;
-    \item \emph{Hardware-based}: supporto fornito direttamente dall’architettura hardware, come ad esempio la disabilitazione delle interruzioni;
+    \item \emph{Algoritmiche}: non si richiedono particolari meccanismi di sincronizzazione, si sfrutta la possibilità di condividere variabili che indicano lo stato della risorsa.
+    \item \emph{Hardware-based}: supporto fornito direttamente dall’architettura hardware, come ad esempio la disabilitazione delle interruzioni.
     \item \emph{Software-based}: si utilizzano costrutti a livello software (come i semafori) per garantire la mutua esclusione.
 \end{itemize}
 \end{solution}
@@ -787,13 +788,13 @@ Generalmente è realizzato dal nucleo del sistema operativo ed è un dato astrat
 Essendo entrambe le operazioni \textbf{atomiche} (eseguibili in un solo ciclo di clock), il valore del semaforo viene modificato da un solo processo alla volta.
 Possiamo, quindi, avere due diversi funzionamenti:  
 \begin{enumerate}
-    \item \texttt{s = 0}: l’esecuzione di \texttt{p(s)} provoca l’attesa del processo che la invoca (semaforo rosso);
-    \item \texttt{s > 0}: la chiamata di \texttt{p(s)} provoca il decremento di \texttt[s] e la continuazione dell’esecuzione (semaforo verde)
+    \item \texttt{s = 0}: l’esecuzione di \texttt{p(s)} provoca l’attesa del processo che la invoca (semaforo rosso).
+    \item \texttt{s > 0}: la chiamata di \texttt{p(s)} provoca il decremento di \texttt[s] e la continuazione dell’esecuzione (semaforo verde).
 \end{enumerate}
 Lo scopo dei semafori è quello di:
 \begin{itemize}
-    \item Eliminare qualsiasi forma di attesa attiva dei processi;
-    \item Eliminare qualsiasi forma di Starvation: viene utilizzato un approccio FIFO per scegliere il processo da risvegliare.
+    \item eliminare qualsiasi forma di attesa attiva dei processi;
+    \item eliminare qualsiasi forma di Starvation: viene utilizzato un approccio FIFO per scegliere il processo da risvegliare.
 \end{itemize}
 \end{solution}
 \begin{problem}{22}
