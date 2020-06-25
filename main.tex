@@ -719,9 +719,10 @@ Le soluzioni per non violare la mutua esclusione sono:
     \newline
     Lo schema tipico dell’invocazione di wait è, quindi, all’interno di un if:
     \begin{minted}{java}
-    if (!B)
+    if (!B){
         cond.wait()
-    // Accesso alla risorsa
+        // Accesso alla risorsa
+    }
     \end{minted}
     \item  \emph{Signal and Continue}: questa soluzione, a differenza della prima, privilegia il processo segnalante rispetto al segnalato. Il processo segnalante Q, dopo aver risvegliato P, prosegue la sua esecuzione mediante l’accesso esclusivo al monitor. Il processo P segnalato viene trasferito alla coda associata all’ingresso del monitor (entry-queue).
     \newline
@@ -729,9 +730,10 @@ Le soluzioni per non violare la mutua esclusione sono:
     \newline
     P dovrà, pertanto, testare nuovamente la condizione di sincronizzazione prima di proseguire utilizzando un while():
     \begin{minted}{java}
-    while (!B)
+    while (!B){
         cond.wait()
-    //accesso alla risorsa
+        //accesso alla risorsa
+    }
     \end{minted}
     \end{enumerate}
 \end{solution}
@@ -777,8 +779,9 @@ Generalmente è realizzato dal nucleo del sistema operativo ed è un dato astrat
 \begin{itemize}
     \item \texttt{p(s)}: blocca il processo fino a che il valore del semaforo diventa $> 0$ e quindi decrementa tale valore di 1;
 \begin{minted}{c}
-    while(!s)
+    while(!s){
         s--;
+    }
     \end{minted}
     \item \texttt{v(s)}: incrementa di 1 il valore del semaforo.  
     \begin{minted}{c}
