@@ -99,7 +99,7 @@
 Confrontare l’organizzazione monolitica con quella basata su microkernel.
 \end{problem}
 \begin{solution}
-L’organizzazione monolitica (adottata da GNU/Linux) semplifica il sistema operativo, inglobandolo in un unico modulo contenente tutte le procedure, ognuna realizzante una funzione specifica.
+L’organizzazione monolitica (adottata da GNU/Linux) possiede una struttura interna semplice, e racchiude in un unica componente tutte le procedure, ognuna realizzante una funzione specifica.
 \newline
 In questo modello, i processi interagiscono tra loro per \textit{chiamate a procedura}, rendendo l’esecuzione più veloce, in quanto si evita di passare il controllo al sistema operativo.
 \newline
@@ -108,7 +108,8 @@ Presenta diversi svantaggi: il sistema operativo è complesso e con questa organ
 \begin{itemize}
     \item difficile da mantenere;
     \item meno portabile;
-    \item meno efficiente.
+    \item scarsa affidabilità;
+    \item difficilmente estendibile.
 \end{itemize}
 Nel modello a microkernel il sistema operativo possiede un ridottissimo nucleo (\textit{kernel}) con poche funzionalità di base, e si interfaccia direttamente con l’hardware.
 \newline
@@ -124,7 +125,7 @@ L’immagine di un processo è l’insieme delle aree di memoria e delle struttu
 \begin{itemize}
     \item In base se è soggetto o meno a \textbf{swapping}:
     \begin{itemize}
-        \item \emph{Swappable}: parte di immagine che può essere spostata in memoria secondaria per far posto ad altre parti di immagini.
+        \item \emph{Swappable}: parte di immagine che può essere spostata in memoria secondaria per liberare spazio ad altre parti di immagini.
         \item \emph{Non swappable}: parte di immagine che non può essere rimossa dalla memoria centrale poiché essenziale al funzionamento.
     \end{itemize}
     \item In base alla \textbf{accessibilità}:
@@ -135,9 +136,9 @@ L’immagine di un processo è l’insieme delle aree di memoria e delle struttu
 \end{itemize}
 L’immagine viene divisa in sotto parti:
 \begin{itemize}
-    \item \emph{Process structure}: contiene le informazioni per la gestione del processo (non swappable, kernel);
-    \item \emph{User structure}: contiene le informazioni necessarie solo quando il processo è residente (swappable, kernel);
-    \item \emph{Text structure}: contiene il riferimento alla memoria dove risiede il codice del processo (non swappable, kernel);
+    \item \emph{Process structure}: contiene le informazioni per la gestione del processo, come id, stato, informazioni relativi allo scheduling ecc. (non swappable, kernel);
+    \item \emph{User structure}: contiene le informazioni necessarie solo quando il processo è residente, come registri CPU, informazioni sulle risorse allocate ecc. (swappable, kernel);
+    \item \emph{Text structure}: contiene il riferimento all'area di memoria dove risiede il codice del processo (non swappable, kernel);
     \item \emph{Dati globali}: contiene le variabili globali del processo (swappable, user);
     \item \emph{Stack e Heap}: contengono dati dinamici associati al processo (swappable, user); 
     \item \emph{Stack del kernel}: contiene le system call associate al processo ed è interno al sistema (swappable, kernel).
@@ -165,7 +166,7 @@ Nel proprio ciclo di vita, un processo può assumere più stati che ne indicano 
 \end{itemize}
 Un processo è rappresentato in Unix da diverse parti con relative proprietà:
 \begin{itemize}
-    \item \emph{Swappable}: parte di immagine che può essere spostata in memoria secondaria per far posto ad altre parti di immagini;
+    \item \emph{Swappable}: parte di immagine che può essere spostata in memoria secondaria per liberare spazio ad altre parti di immagini;
     \item \emph{Non swappable}: parte di immagine che non può essere rimossa dalla memoria centrale poiché essenziale al funzionamento; 
     \item \emph{Kernel}: parte di immagine che viene eseguita solo dal sistema operativo in modalità kernel;
     \item \emph{User}: parte di immagine eseguibile e modificabile dall’utente.
@@ -182,7 +183,9 @@ Il \textit{Process Control Block} (PCB) è una struttura dati del nucleo del sis
         \item stato;
         \item puntatori alle varie aree dati;
         \item riferimento all'elemento della text table associato al codice del processo;
-        \item informazioni di scheduling.
+        \item informazioni di scheduling;
+        \item riferimento al processo padre;
+        \item puntatore alla user structure.
     \end{itemize} 
     Più process structure costituiscono la \textit{process table}. 
     \item \emph{User structure}: contiene le informazioni necessarie solo se il processo è residente in memoria centrale, in particolare:
@@ -198,7 +201,7 @@ Il \textit{Process Control Block} (PCB) è una struttura dati del nucleo del sis
 Descrivere i meccanismi del SO all’invocazione di system call.
 \end{problem}
 \begin{solution}
-In Unix, per garantire protezione, si hanno due modalità: 
+In Unix, per garantire protezione, si hanno due modalità di esecuzione: 
 \begin{itemize}
     \item \emph{User Mode};
     \item \emph{Kernel Mode}.
@@ -243,7 +246,7 @@ Per accedere al lato di lettura della pipe viene utilizzata la system call \text
 \newline
 La comunicazione tramite \textit{pipe} presenta principalmente due svantaggi:
 \begin{enumerate}
-    \item La comunicazione avviene tra processi della stessa famiglia.
+    \item La comunicazione avviene solo tra processi della stessa famiglia.
     \item Non è persistente: viene distrutta quando terminano tutti i processi che la utilizzano.
 \end{enumerate}
 La comunicazione tra processi può avvenire anche tramite \textit{fifo}; ha le stesse funzioni della pipe, con il vantaggio che ha validità su tutti i processi in esecuzione sulla macchina.
@@ -265,7 +268,7 @@ Dove \texttt{pathname} è il nome della fifo, \texttt{mode} esprime i permessi.
 Descrivi la sincronizzazione tra processi in Unix 
 \end{problem}
 \begin{solution}
-La sincronizzazione tra processi permette di imporre dei vincoli sulle operazioni di processi interagenti. In Unix, non essendoci condivisione di dati o variabili, risulta difficile imporre vincoli in base all'ordine cronologico delle azioni eseguite o in base alla mutua esclusione di una risorsa.
+La sincronizzazione tra processi permette di imporre dei vincoli sul ordine di esecuzione delle operazioni dei processi interagenti. In Unix, non essendoci condivisione di dati o variabili, risulta difficile imporre vincoli in base all'ordine cronologico delle azioni eseguite o in base alla mutua esclusione di una risorsa.
 \newline
 \newline
 Il sistema operativo gestisce gli eventi asincroni tramite i \textit{segnali}, ovvero interruzioni asincrone per il processo che li riceve; possono avere origine sia software che hardware.
@@ -298,11 +301,11 @@ Quando un file viene aperto con \texttt{open()}:
 \begin{enumerate}
     \item Viene inserito un nuovo elemento (file descriptor) all’interno della tabella dei file aperti di  processo nella prima posizione libera.
     \item Viene inserito un nuovo record nella tabella dei file aperti di sistema.
-    \item Viene copiato l’i-node all’interno della tabella dei file attivi se il file non è già usato.
+    \item Viene copiato l’i-node all’interno della tabella dei file attivi se il file non è già usato e viene effettuato memory mapping.
 \end{enumerate}
 Quando un file viene chiuso con \texttt{close()}:
 \begin{enumerate}
-    \item Viene eliminato l’elemento corrispondente al file descriptor nella tabella dei file aperti.
+    \item Viene eliminato l’elemento corrispondente al file descriptor nella tabella dei file aperti di processo.
     \item Viene eliminato il corrispondente record nella tabella di file aperti di sistema (se il file non è condiviso con altri processi).
     \item Viene eliminato l’i-node nella tabella dei file attivi (se il file non è condiviso con altri processi).
 \end{enumerate}
@@ -327,7 +330,7 @@ L’allocazione \textit{contigua} presenta varie modalità:
     \item \emph{A partizione multipla}: la memoria è suddivisa in più parti, dette partizioni, che possono avere dimensioni fisse o variabili:
     \begin{itemize}
         \item \emph{Fisse}: in ogni partizione vengono mappati processi in modo che una determinata partizione sia in grado di contenerli.
-        \newline Si ha così il problema della frammentazione interna: tra le partizioni si vengono a creare spazi inutilizzati.
+        \newline Si ha così il problema della frammentazione interna: all'interno delle partizioni si vengono a creare spazi inutilizzati, poiché non utilizzati dal processo.
         \newline
         È presente un grado di multiprogrammazione limitato.
         \item \emph{Variabili}: ogni partizione avrà la dimensione del processo allocato.\newline Viene risolto così il problema della frammentazione interna e si ha una multiprogrammazione variabile.
@@ -383,7 +386,7 @@ Per distinguere gli elementi significativi da quelli non utilizzati si ricorre a
     \item 1: la entry è valida, quindi la pagina appartiene allo spazio logico del processo.
     \item 0: la entry non è valida.
 \end{itemize}
-Per riconoscere gli elementi significativi della tabella delle pagine viene utilizzato anche il \textbf{Page Table Legth Register}, che contiene il numero degli elementi validi nella tabella delle pagine.\newline
+Per riconoscere gli elementi significativi della tabella delle pagine viene utilizzato anche il \textbf{Page Table Length Register}, che contiene il numero degli elementi validi nella tabella delle pagine.\newline
 I principali vantaggi di questa tecnica sono:
 \begin{itemize}
     \item eliminazione della frammentazione esterna poiché pagine logiche contigue possono essere mappate su frame fisici non contigui;
@@ -483,7 +486,12 @@ Ci sono diversi algoritmi il cui scopo è capire quale pagina sia la migliore da
     Per questa tecnica è necessario introdurre un contatore, che tenga conto del numero di accessi per ogni pagina.
     \item \emph{FIFO}: dealloca la pagina caricata da più tempo (indipendentemente dal suo uso).
 In questo caso occorre memorizzare la cronologia dei caricamenti in memoria, o gestire una coda in cui ogni elemento rappresenta una pagina caricata in memoria.
-    \item \emph{LRU} (Least Recently Used): dealloca la pagina usata meno di recente.
+        \item \emph{LRU} (Least Recently Used): dealloca la pagina usata meno di recente. Per implementare tale algoritmo occorre memorizzare la sequenza degli accessi alle pagine in memoria. Due possibili soluzioni:
+    \begin{itemize}
+      \item \emph{Time stamping}: per ciascun elemento della tabella delle pagine esiste un campo che rappresenta l’istante dell’ultimo accesso in memoria.
+      \item \emph{Stack}: una struttura dati di tipo stack in cui ogni elemento rappresenta una pagina, ad ogni ogni accesso ad una pagina l'elemento corrispondente si sposta nel top dello stack, mentre il bottom rappresenta la pagina LRU.
+      \end{itemize}
+La gestione, in entrambi i casi, risulta essere costosa.
 \end{itemize}
 Occorre memorizzare la sequenza degli accessi alle pagine in memoria; viene utilizzato o un time stamping per ciascun elemento della tabella delle pagine, che rappresenta l’istante dell’ultimo accesso in memoria, oppure uno stack, in cui il bottom rappresenta la pagina LRU.
 \newline
@@ -499,7 +507,7 @@ Il file system realizza i concetti astratti di:
 \begin{itemize}
     \item \emph{File}: unità logica di memorizzazione.
     \item \emph{Directory}: insieme di file e direttori.
-    \item \emph{Partizione}: insieme di file associato ad un particolare dispositivo fisico.
+    \item \emph{Partizione}: una suddivisione logica di un dispositivo di memorizzazione fisica a cui viene associato un insieme di file.
 \end{itemize}
 Esistono diversi metodi di accesso messi a disposizione dal file system:
 \begin{itemize}
@@ -533,7 +541,7 @@ Sono presenti varie tecniche di allocazione nel file system:
   Svantaggi:
   \begin{enumerate}
       \item Possibili errori in caso di link danneggiati.
-      \item Maggior occupazione a causa dei puntatori.
+      \item Maggior occupazione dello spazio fisico a causa dei puntatori.
       \item Alto costo nella ricerca.
   \end{enumerate}
   \item \emph{Allocazione a indice}: i puntatori ai blocchi in cui il file è mappato sono contenuti in un unico blocco (blocco a indice).
@@ -803,7 +811,7 @@ Lo scopo dei semafori è quello di:
 Descrizione e confronto tra gestione a controllo di programma e gestione a interruzioni di dispositivi di I/O.
 \end{problem}
 \begin{solution}
-Per gestire dispositivi di I/O vengono utilizzate interfacce, con il compito sia di mascherare la complessità della periferica (astrazione per l’utente), sia di garantire l’accesso alle periferiche e il loro funzionamento.
+Per gestire dispositivi di I/O vengono utilizzate interfacce, con il compito sia di mascherare la complessità della periferica (astrazione per l’utente), sia di garantire l’accesso alle periferiche in modo omogeneo e il loro corretto funzionamento.
 \newline
 \newline
 Un altro compito del sottosistema di I/O è quello di naming, relativo alla definizione di uno spazio di nomi tramite i quali i singoli dispositivi vengono identificati univocamente dai processi che su essi devono operare.
