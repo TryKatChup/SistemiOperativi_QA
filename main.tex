@@ -777,13 +777,12 @@ Il semaforo è uno strumento di sincronizzazione che consente di risolvere qualu
 \newline
 Generalmente è realizzato dal nucleo del sistema operativo ed è un dato astratto rappresentato da un intero non negativo a cui è possibile accedere solo tramite le due operazioni, \texttt{p()} e \texttt{v()}:
 \begin{itemize}
-    \item \texttt{p(s)}: blocca il processo fino a che il valore del semaforo diventa $> 0$ e quindi decrementa tale valore di 1;
+    \item \texttt{p(s)}: blocca il processo fino a che il valore del semaforo diventa $> 0$ e \textit{successivamente} decrementa tale valore di 1;
 \begin{minted}{c}
-    while(!s){
-        s--;
-    }
-    \end{minted}
-    \item \texttt{v(s)}: incrementa di 1 il valore del semaforo.  
+    while(!s);
+    s--;
+\end{minted}
+\item \texttt{v(s)}: incrementa di 1 il valore del semaforo.  
     \begin{minted}{c}
         s++;
     \end{minted}
