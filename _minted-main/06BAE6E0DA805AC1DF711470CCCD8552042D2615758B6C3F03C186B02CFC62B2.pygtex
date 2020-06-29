@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k}{while}\PYG{p}{(}\PYG{o}{!}\PYG{n}{s}\PYG{p}{);}
+    \PYG{n}{s}\PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{;}
+\end{Verbatim}

@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \documentclass{article}
-\usepackage[margin=1in]{geometry} 
+\usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amsthm,amssymb,amsfonts, fancyhdr, color, comment, graphicx, environ}
 \usepackage{xcolor}
 \usepackage[utf8]{inputenc}
@@ -16,7 +16,7 @@
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
-    filecolor=magenta,      
+    filecolor=magenta,
     urlcolor=blue,
 }
 
@@ -40,7 +40,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document information (author, course, date)
 \lhead{Karina Chichifoi }
-\rhead{\today} 
+\rhead{\today}
 \chead{\textbf{Sistemi Operativi Q\&A}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define huge title
@@ -53,23 +53,23 @@
 	\centering
 	\large
 	A cura di Karina Chichifoi - Ultima revisione: \today
-	
+
 	\noindent\rule{15cm}{0.2pt}
-	
+
 	\vspace{1.5cm}
-	
+
 	\HUGE
 	\textbf{SISTEMI OPERATIVI Q\&A}
-	
+
 	\vspace{1.5cm}
-	
+
 	\includegraphics[scale=0.6]{ab6.jpg}
-	
+
 	\vspace{1.5cm}
-	
+
 	\normalsize
 	\url{https://github.com/TryKatChup/SistemiOperativi_QA}
-	
+
 	\clearpage
 \end{titlepage}
 % Premessa
@@ -78,16 +78,16 @@
 	\section*{Premessa}
 	Ho scritto questo file in modo da facilitare lo studio e il superamento dell'esame di Sistemi Operativi T.
 	Tuttavia è consigliato integrare questo materiale con le slide della professoressa Anna Ciampolini, disponibili sulla piattaforma \textit{Insegnamenti Online}.
-		
+
 	\section*{Contribuire alla guida}
-	
+
 	Se ritieni di poter migliorare la guida, oppure se sono state aggiunte altre domande al di fuori di questo file, o se hai trovato un errore, visita la repository GitHub ed apri una \textit{issue}, oppure inviami un messaggio. Ogni contributo è ben accetto :)
-	
+
 	\vspace{4mm}
 	Link Repository: \url{https://github.com/TryKatChup/SistemiOperativi_QA}
-	
+
 	\vspace{5mm}
-	
+
 	\begin{figure}[htb!]
 		\centering
 		\includegraphics[width=4cm]{qr.png}
@@ -118,7 +118,7 @@ Il resto del sistema operativo è rappresentato da processi utente.
 Questa struttura rende l’esecuzione più lenta poiché un processo deve attendere che il sistema operativo esegua una system call (procedura \textit{interna} al kernel) ma, allo stesso tempo, facilita la manutenzione e rende il sistema generalmente più sicuro.
 \end{solution}
 \begin{problem}{2}
-Descrivere l'immagine di un processo nel SO Unix. 
+Descrivere l'immagine di un processo nel SO Unix.
 \end{problem}
 \begin{solution}
 L’immagine di un processo è l’insieme delle aree di memoria e delle strutture dati ad esso dedicate. In Unix, le immagini sono divise in parti di tipologie diverse:
@@ -137,10 +137,10 @@ L’immagine di un processo è l’insieme delle aree di memoria e delle struttu
 L’immagine viene divisa in sotto parti:
 \begin{itemize}
     \item \emph{Process structure}: contiene le informazioni per la gestione del processo, come id, stato, informazioni relativi allo scheduling ecc. (non swappable, kernel);
-    \item \emph{User structure}: contiene le informazioni necessarie solo quando il processo è residente, come registri CPU, informazioni sulle risorse allocate ecc. (swappable, kernel);
+    \item \emph{User structure}: contiene le informazioni necessarie solo quando il processo è residente in memoria centrale, come registri CPU, informazioni sulle risorse allocate ecc. (swappable, kernel);
     \item \emph{Text structure}: contiene il riferimento all'area di memoria dove risiede il codice del processo (non swappable, kernel);
     \item \emph{Dati globali}: contiene le variabili globali del processo (swappable, user);
-    \item \emph{Stack e Heap}: contengono dati dinamici associati al processo (swappable, user); 
+    \item \emph{Stack e Heap}: contengono dati dinamici associati al processo (swappable, user);
     \item \emph{Stack del kernel}: contiene le system call associate al processo ed è interno al sistema (swappable, kernel).
 \end{itemize}
 \newpage
@@ -154,12 +154,12 @@ Un processo è la minima unità di computazione.
 In Unix viene definito \textit{pesante} (composto da un singolo task con un unico thread) e ha codice \textit{rientrante} (codice condivisibile da più processi, ma dati non condivisibili).
 Per permettere la \textit{rientranza} i dati e il codice dei processi sono separati (modello a codice puro).
 \newline
-Nel proprio ciclo di vita, un processo può assumere più stati che ne indicano l’operazione effettuata: 
+Nel proprio ciclo di vita, un processo può assumere più stati che ne indicano l’operazione effettuata:
 \begin{itemize}
     \item \emph{Init}: caricamento in memoria dell’immagine del processo;
     \item \emph{Ready}: processo pronto a essere eseguito;
     \item \emph{Running}: processo in esecuzione, utilizza la CPU;
-    \item \emph{Sleeping}: il processo attende un evento per riprendere l’esecuzione; 
+    \item \emph{Sleeping}: il processo attende un evento per riprendere l’esecuzione;
     \item \emph{Swapped}: una parte o tutto il processo è spostato in memoria secondaria;
     \item \emph{Zombie}: il processo ha concluso l'esecuzione, ma è in attesa che il proprio padre ne prelevi lo stato di terminazione;
     \item \emph{Terminated}: processo deallocato dalla memoria, fine del processo.
@@ -167,11 +167,11 @@ Nel proprio ciclo di vita, un processo può assumere più stati che ne indicano 
 Un processo è rappresentato in Unix da diverse parti con relative proprietà:
 \begin{itemize}
     \item \emph{Swappable}: parte di immagine che può essere spostata in memoria secondaria per liberare spazio ad altre parti di immagini;
-    \item \emph{Non swappable}: parte di immagine che non può essere rimossa dalla memoria centrale poiché essenziale al funzionamento; 
+    \item \emph{Non swappable}: parte di immagine che non può essere rimossa dalla memoria centrale poiché essenziale al funzionamento;
     \item \emph{Kernel}: parte di immagine che viene eseguita solo dal sistema operativo in modalità kernel;
     \item \emph{User}: parte di immagine eseguibile e modificabile dall’utente.
 \end{itemize}
-Il sistema operativo gestisce una struttura dati globale, chiamata \textit{text table}, in cui sono contenuti i puntatori ai codici utilizzati, eventualmente condivisi, dai processi. 
+Il sistema operativo gestisce una struttura dati globale, chiamata \textit{text table}, in cui sono contenuti i puntatori ai codici utilizzati, eventualmente condivisi, dai processi.
 Ciascun elemento della text table viene chiamato \textit{text structure} e contiene un puntatore al codice e il numero dei processi che lo condividono.
 \newline
 \newline
@@ -186,8 +186,8 @@ Il \textit{Process Control Block} (PCB) è una struttura dati del nucleo del sis
         \item informazioni di scheduling;
         \item riferimento al processo padre;
         \item puntatore alla user structure.
-    \end{itemize} 
-    Più process structure costituiscono la \textit{process table}. 
+    \end{itemize}
+    Più process structure costituiscono la \textit{process table}.
     \item \emph{User structure}: contiene le informazioni necessarie solo se il processo è residente in memoria centrale, in particolare:
     \begin{itemize}
         \item registri CPU;
@@ -201,7 +201,7 @@ Il \textit{Process Control Block} (PCB) è una struttura dati del nucleo del sis
 Descrivere i meccanismi del SO all’invocazione di system call.
 \end{problem}
 \begin{solution}
-In Unix, per garantire protezione, si hanno due modalità di esecuzione: 
+In Unix, per garantire protezione, si hanno due modalità di esecuzione:
 \begin{itemize}
     \item \emph{User Mode};
     \item \emph{Kernel Mode}.
@@ -210,10 +210,10 @@ Il sistema operativo esegue le system call in modalità \textit{kernel}. Quando 
 \newline
 Quando un processo tenta di eseguire un’istruzione privilegiata:
 \begin{itemize}
-    \item viene inviata un’interruzione al sistema operativo; 
-    \item si salva lo stato del programma chiamante; 
+    \item viene inviata un’interruzione al sistema operativo;
+    \item si salva lo stato del programma chiamante;
     \item si trasferisce il controllo al sistema operativo;
-    \item il sistema operativo esegue in modalità kernel l’istruzione richiesta; 
+    \item il sistema operativo esegue in modalità kernel l’istruzione richiesta;
     \item una volta completata la richiesta, il controllo viene passato nuovamente al programma chiamante, che continua a eseguire istruzioni in modalità user.
 \end{itemize}
 \end{solution}
@@ -233,7 +233,7 @@ La pipe ha le seguenti caratteristiche:
 \end{itemize}
 Per creare una pipe si utilizza la seguente primitiva:
 \begin{center}
-\texttt{int pipe(int fd[2]);}  
+\texttt{int pipe(int fd[2]);}
 \end{center}
 Dove \texttt{fd} è un puntatore a un vettore di 2 file descriptor:
 \begin{itemize}
@@ -265,10 +265,10 @@ La creazione della fifo avviene tramite la seguente system call:
 Dove \texttt{pathname} è il nome della fifo, \texttt{mode} esprime i permessi.
 \end{solution}
 \begin{problem}{6}
-Descrivi la sincronizzazione tra processi in Unix 
+Descrivi la sincronizzazione tra processi in Unix
 \end{problem}
 \begin{solution}
-La sincronizzazione tra processi permette di imporre dei vincoli sul ordine di esecuzione delle operazioni dei processi interagenti. In Unix, non essendoci condivisione di dati o variabili, risulta difficile imporre vincoli in base all'ordine cronologico delle azioni eseguite o in base alla mutua esclusione di una risorsa.
+La sincronizzazione tra processi permette di imporre dei vincoli sull' ordine di esecuzione delle operazioni dei processi interagenti. In Unix, non essendoci condivisione di dati o variabili, risulta difficile imporre vincoli in base all'ordine cronologico delle azioni eseguite o in base alla mutua esclusione di una risorsa.
 \newline
 \newline
 Il sistema operativo gestisce gli eventi asincroni tramite i \textit{segnali}, ovvero interruzioni asincrone per il processo che li riceve; possono avere origine sia software che hardware.
@@ -293,7 +293,7 @@ L'I/O-Pointer registra di volta in volta la posizione corrente di lettura/scritt
 \newline
 Unix mette a disposizione alcune strutture dati fondamentali per la gestione dei file:
 \begin{itemize}
-    \item \emph{Tabella dei file aperti di processo}: è una tabella situata nella user area di ogni processo, contiene una entry per ogni file aperto da quello specifico processo;
+    \item \emph{Tabella dei file aperti di processo}: è una tabella situata nella user structure di ogni processo, contiene una entry per ogni file aperto da quello specifico processo;
     \item \emph{Tabella dei file aperti di sistema}: è una tabella di sistema che contiene una entry per ogni file aperto, ma non ancora chiuso. Contiene anche l’IO-Pointer che indica la posizione corrente all’interno del file;
     \item \emph{Tabella dei file attivi}: è una tabella di sistema che contiene tutti i descrittori dei file aperti nel sistema (detti anche i-node).
 \end{itemize}
@@ -323,7 +323,7 @@ Esistono due metodi di allocazione di codice e dati di un processo in memoria ce
 \begin{enumerate}
     \item Allocazione contigua.
     \item Allocazione non contigua.
-\end{enumerate} 
+\end{enumerate}
 L’allocazione \textit{contigua} presenta varie modalità:
 \begin{itemize}
     \item \emph{A partizione singola}: la memoria è vista come un unico blocco all’interno del quale è possibile allocare un solo processo per volta, con totale mancanza di multiprogrammazione.
@@ -345,7 +345,7 @@ L’allocazione \textit{non contigua} presenta diverse tecniche:
     Viene ridotto il problema della frammentazione interna, grazie alla dimensione fissa delle pagine.
     \item \emph{Segmentazione}: estende la tecnica di allocazione a partizioni variabili.
     \newline
-    Lo spazio logico è suddiviso in segmenti caratterizzati da tipo e lunghezza del codice contenuto; ciascun segmento è rappresentato da un intero, che ne permette l'identificazione da parte del sistema operativo. 
+    Lo spazio logico è suddiviso in segmenti caratterizzati da tipo e lunghezza del codice contenuto; ciascun segmento è rappresentato da un intero, che ne permette l'identificazione da parte del sistema operativo.
     \newline
     Il problema principale della segmentazione, come nella tecnica a partizioni variabili è la frammentazione esterna; può essere risolto con la tecnica di allocazione best-fit, ovvero allocando un segmento solo a processi che più si avvicinano alle dimensioni di quest'ultimo.
     \item \emph{Segmentazione paginata}: è una combinazione tra segmentazione e paginazione. Lo spazio logico è diviso in segmenti e questi ultimi, a loro volta, in pagine.
@@ -356,10 +356,10 @@ L’allocazione \textit{non contigua} presenta diverse tecniche:
 Descrivere la paginazione.
 \end{problem}
 \begin{solution}
-La paginazione consiste nel partizionamento dello spazio fisico di memoria in cornici (frame) di dimensione \textit{costante} e \textit{limitata} nelle quali mappare porzioni dei processi da allocare. Si ha una distinzione tra lo spazio fisico e quello logico: 
+La paginazione consiste nel partizionamento dello spazio fisico di memoria in cornici (frame) di dimensione \textit{costante} e \textit{limitata} nelle quali mappare porzioni dei processi da allocare. Si ha una distinzione tra lo spazio fisico e quello logico:
 \begin{itemize}
     \item Fisico: costituito da frame, di dimensioni $D_f$ costanti e prefissate.
-    \item Logico: insieme di pagine di dimensione uguale a $D_f$. 
+    \item Logico: insieme di pagine di dimensione uguale a $D_f$.
 \end{itemize}
 Ogni pagina logica viene mappata su una pagina fisica in memoria centrale.
 \newline
@@ -418,7 +418,7 @@ L’indirizzo fisico è invece formato da:
 \end{itemize}
 Al fine di effettuare il binding tra indirizzo logico e fisico dei segmenti, viene utilizzata la \textbf{tabella dei segmenti} che risiede in memoria centrale per via delle sue elevate dimensioni (tabella globale).
 \newline
-Essendo la segmentazione un’estensione della tecnica di allocazione a partizioni variabili, presenta il problema della frammentazione esterna: può essere risolto grazie all’uso della tecnica di allocazione \emph{Best-Fit}, consistente nell’allocazione di un segmento nella porzione di memoria libera più vicina alle sue dimensioni. 
+Essendo la segmentazione un’estensione della tecnica di allocazione a partizioni variabili, presenta il problema della frammentazione esterna: può essere risolto grazie all’uso della tecnica di allocazione \emph{Best-Fit}, consistente nell’allocazione di un segmento nella porzione di memoria libera più vicina alle sue dimensioni.
 \newline
 Questa tecnica potrebbe richiedere tempi elevati.
 \end{solution}
@@ -437,7 +437,7 @@ Al fine di distinguere le pagine allocate in memoria centrale da quelle in memor
 \newline
 Nell’accesso ad ogni indirizzo di una pagina si consulta il suo bit di validità: se vale 1, allora il programma continua la propria esecuzione, ma, nel caso in cui valga 0, il programma manda un segnale al sistema operativo, che incaricherà il pager di allocare la pagina richiesta in un frame libero della memoria centrale.
 \newline
-Non sempre è presente spazio libero in memoria centrale: quando ciò accade è necessario scegliere una pagina da deallocare per far posto alla nuova pagina necessaria. 
+Non sempre è presente spazio libero in memoria centrale: quando ciò accade è necessario scegliere una pagina da deallocare per far posto alla nuova pagina necessaria.
 \newline
 Ci sono diversi algoritmi il cui scopo è capire quale pagina sia più corretto deallocare:
 \begin{itemize}
@@ -489,7 +489,7 @@ In questo caso occorre memorizzare la cronologia dei caricamenti in memoria, o g
         \item \emph{LRU} (Least Recently Used): dealloca la pagina usata meno di recente. Per implementare tale algoritmo occorre memorizzare la sequenza degli accessi alle pagine in memoria. Due possibili soluzioni:
     \begin{itemize}
       \item \emph{Time stamping}: per ciascun elemento della tabella delle pagine esiste un campo che rappresenta l’istante dell’ultimo accesso in memoria.
-      \item \emph{Stack}: una struttura dati di tipo stack in cui ogni elemento rappresenta una pagina, ad ogni ogni accesso ad una pagina l'elemento corrispondente si sposta nel top dello stack, mentre il bottom rappresenta la pagina LRU.
+      \item \emph{Stack}: una struttura dati di tipo stack in cui ogni elemento rappresenta una pagina, ad ogni accesso ad una pagina l'elemento corrispondente si sposta nel top dello stack, mentre il bottom rappresenta la pagina LRU.
       \end{itemize}
 La gestione, in entrambi i casi, risulta essere costosa.
 \end{itemize}
@@ -511,10 +511,10 @@ Il file system realizza i concetti astratti di:
 \end{itemize}
 Esistono diversi metodi di accesso messi a disposizione dal file system:
 \begin{itemize}
-    \item \emph{Sequenziale}: il file è visto come una sequenza di record logici e viene letto in modo sequenziale. Per accedere a un record bisogna prima accedere a tutti quelli che lo precedono. Ogni operazione di accesso (lettura/scrittura) posiziona il puntatore al file (che indica la posizione corrente all’interno del file) sull’elemento successivo a quello letto/scritto. 
+    \item \emph{Sequenziale}: il file è visto come una sequenza di record logici e viene letto in modo sequenziale. Per accedere a un record bisogna prima accedere a tutti quelli che lo precedono. Ogni operazione di accesso (lettura/scrittura) posiziona il puntatore al file (che indica la posizione corrente all’interno del file) sull’elemento successivo a quello letto/scritto.
     \item \emph{Diretto}: il file è visto come un insieme di record logici numerati e si accede specificando il numero del record a cui si vuole accedere.
-    \item \emph{Ad indice}: a ogni file viene associata una struttura dati contenente l’indice delle informazioni contenute. Per accedere a un record si sfrutta la ricerca a indice, utilizzanod una chiave. 
-\end{itemize} 
+    \item \emph{Ad indice}: a ogni file viene associata una struttura dati contenente l’indice delle informazioni contenute. Per accedere a un record si sfrutta la ricerca a indice, utilizzando una chiave.
+\end{itemize}
 Sono presenti varie tecniche di allocazione nel file system:
 \begin{itemize}
     \item  \emph{Allocazione contigua}: ogni file è mappato su un insieme di blocchi fisicamente contigui.
@@ -558,7 +558,7 @@ Sono presenti varie tecniche di allocazione nel file system:
   \begin{enumerate}
       \item Scarso utilizzo dei blocchi a indice in caso di file di piccole dimensioni.
   \end{enumerate}
-\end{itemize} 
+\end{itemize}
 \end{solution}
 \begin{problem}{15}
 Descrivere l'organizzazione fisica del file system in Unix.
@@ -566,7 +566,7 @@ Descrivere l'organizzazione fisica del file system in Unix.
 \begin{solution}
 In Unix tutto è rappresentato come file.
 \newline
-Questi vengono suddidisi in tre categorie: 
+Questi vengono suddidisi in tre categorie:
 \begin{itemize}
     \item File ordinari (unità logica di memorizzazione).
     \item Directory (insieme di file e direttori).
@@ -586,7 +586,7 @@ La superficie del disco dove risiede il File System è partizionata in 4 blocchi
     \item \emph{Boot block}: blocco in cui è memorizzato il codice di avvio del sistema (bootstrap);
     \item \emph{Super block}: fornisce i limiti dei 4 blocchi e i puntatori alla lista dei blocchi e degli inode liberi;
     \item \emph{Data block}: l’area per la memorizzazione dei file;
-    \item \emph{I-list}: contiene la lista di tutti gli i-node dei file nel File System. 
+    \item \emph{I-list}: contiene la lista di tutti gli i-node dei file nel File System.
 \end{itemize}
 In Unix, l’allocazione dei file è realizzata con il metodo a indice.
 \newline
@@ -609,10 +609,10 @@ I processi nella ready queue che dovranno essere eseguiti verranno scelti in bas
     \item \emph{Algoritmi con prelazione} (pre-emptive): dopo un lasso di tempo fisso per tutti i processi, il sistema operativo può decidere di sottrarre la CPU al processo in esecuzione, assegnandola a un altro. Il processo passa così dallo stato di running allo stato ready.
     \newline
     I sistemi \textit{time-sharing} hanno sempre uno scheduling \textbf{pre-emptive}.
-    
+
     \item \emph{Algoritmi senza prelazione} (non pre-emptive): Il sistema operativo non può attuare la sottrazione della CPU e deve aspettare la terminazione (o sospensione) dell’esecuzione del processo che la sta usando.
 \end{enumerate}
-Per classificare un algoritmo di scheduling bisogna tenere in considerazione alcune variabili.  L’obiettivo principale è quello di massimizzare: 
+Per classificare un algoritmo di scheduling bisogna tenere in considerazione alcune variabili.  L’obiettivo principale è quello di massimizzare:
 \begin{itemize}
     \item Utilizzo di CPU: percentuale media di utilizzo della CPU nell’unità di tempo.
     \item Throughput: numero di processi completati nell’unità di tempo.
@@ -628,19 +628,19 @@ Gli algoritmi di scheduling sono ulteriormente suddivisi per la scelta del proce
     \item \emph{FCFS} (First Come First Served): algoritmo senza prelazione con coda gestita in modo FIFO.
     \newline
     Non si può influire sull’ordine dei processi. Presenta un tempo di attesa alto se ci sono molti processi che usano in modo intensivo la CPU (CPU-bound).
-    
+
     \item \emph{SJF} (Shortest Job First): tipicamente senza prelazione, viene effettuata una stima della lunghezza del prossimo CPU-burst per ogni processo e viene schedulato il processo con il CPU-burst minore.
     \newline
     A ogni processo viene assegnata una priorità (costante o variabile) e viene selezionato il processo con priorità maggiore.
     \newline
     È presente il rischio di \textbf{starvation} per processi con bassa priorità (uso intenso di CPU), dovuto alla costante presenza di processi con priorità minore.
-    
+
     \item \emph{Round robin}: algoritmo con prelazione periodica, la CPU viene assegnata ciclicamente per un intervallo di tempo costante (time slicing).
     \newline
     Tipicamente usato nei sistemi timesharing.
     \newline
     Obiettivo principale è la minimizzazione del tempo di risposta.
-    
+
     \item \emph{MLFQ} (Multiple Level Feedback Queues): effettivamente usato nei sistemi operativi.
     \newline
     Presenza di più code, ognuna delle quali ha una diversa priorità e viene gestita con un algoritmo di scheduling distinto.
@@ -650,7 +650,7 @@ Gli algoritmi di scheduling sono ulteriormente suddivisi per la scelta del proce
         \item Da priorità bassa ad alta: processi in attesa da molto tempo.
         \item Da priorità alta a bassa: il processo è stato eseguito per molto tempo.
     \end{itemize}
-\end{itemize} 
+\end{itemize}
 \end{solution}
 \begin{problem}{17}
 Descrivere i passaggi di sostituzione ed elaborazione nella Shell Bash.
@@ -681,17 +681,17 @@ Il Monitor è un costrutto sintattico che associa un insieme di operazioni entry
 \end{itemize}
 All’interno del monitor vengono dichiarate delle variabili locali che definiscono lo stato della risorsa e sono accessibili dall’interno del monitor o dall’esterno, solo da processi che utilizzano metodi entry.
 \newline
-Lo scopo del monitor è quello di controllare l’accesso alla risorsa da parte dei processi concorrenti.  
+Lo scopo del monitor è quello di controllare l’accesso alla risorsa da parte dei processi concorrenti.
 \newline
 \newline
-L’accesso alla risorsa avviene mediante due livelli di sincronizzazione:  
+L’accesso alla risorsa avviene mediante due livelli di sincronizzazione:
 \begin{enumerate}
-    \item Primo livello: garantisce la \textbf{mutua esclusione}, cioè un solo processo alla volta può avere accesso alle variabili del monitor. Se questo dovesse essere occupato, il processo viene sospeso nella entry queue. 
+    \item Primo livello: garantisce la \textbf{mutua esclusione}, cioè un solo processo alla volta può avere accesso alle variabili del monitor. Se questo dovesse essere occupato, il processo viene sospeso nella entry queue.
     \item Secondo livello: regola l’ordine di accesso al monitor. All' invocazione di una procedura viene controllato che la condizione di sincronizzazione sia soddisfatta, assicurandone l’ordinamento.
     \newline
     Se la condizione non è soddisfatta, il processo viene sospeso nella condition queue associata alla condizione.
     \newline
-    La realizzazione avviene tramite la variabile \textit{condizione} (condition). 
+    La realizzazione avviene tramite la variabile \textit{condizione} (condition).
 \end{enumerate}
 La variabile condizione è necessaria solo all’interno del monitor e rappresenta la coda nella quale i processi sospendono la propria esecuzione.
 \newline
@@ -710,12 +710,12 @@ Le variabili condizione sono particolari variabili situate all’interno di un m
 La variabile condizione rappresenta una coda nella quale i processi vengono sospesi nel caso in cui l’accesso alla risorsa sia a loro negato.
 \newline
 \newline
-Le possibili operazioni sulle variabili condizione sono: 
+Le possibili operazioni sulle variabili condizione sono:
 \begin{itemize}
     \item \texttt{await()}: sospende il processo e lo aggiunge nella coda individuata dalla variabile condizione;
     \item \texttt{signal()} / \texttt{signalAll()}: risveglia il primo processo/tutti i processi pronto/i nella coda individuata dalla condition.
 \end{itemize}
-\textbf{Semantiche:} 
+\textbf{Semantiche:}
 \newline
 Sia P un processo sospeso su una variabile condizione X e sia Q il processo che esegue la \texttt{signal()} su tale variabile. Come conseguenza della signal(), entrambi i processi potrebbero proseguire.
 \newline
@@ -734,7 +734,7 @@ Le soluzioni per non violare la mutua esclusione sono:
     \end{minted}
     \item  \emph{Signal and Continue}: questa soluzione, a differenza della prima, privilegia il processo segnalante rispetto al segnalato. Il processo segnalante Q, dopo aver risvegliato P, prosegue la sua esecuzione mediante l’accesso esclusivo al monitor. Il processo P segnalato viene trasferito alla coda associata all’ingresso del monitor (entry-queue).
     \newline
-    Poiché nella entry-queue possono esserci già altri processi, questi potrebbero precedere l’esecuzione di P e modificare il valore della condizione di sincronizzazione (B). 
+    Poiché nella entry-queue possono esserci già altri processi, questi potrebbero precedere l’esecuzione di P e modificare il valore della condizione di sincronizzazione (B).
     \newline
     P dovrà, pertanto, testare nuovamente la condizione di sincronizzazione prima di proseguire utilizzando un while():
     \begin{minted}{java}
@@ -768,7 +768,7 @@ Per risolvere il problema della mutua esclusione:
 \end{enumerate}
 Lo schema generale di risoluzione della mutua esclusione è porre un prologo ed un epilogo rispettivamente all’inizio e alla fine della sezione critica.
 \newline
-Il prologo consiste nel chiedere l’autorizzazione ad ogni processo prima di entrare in una sezione critica, affinché venga garantito l’uso esclusivo della risorsa se questa è libera, oppure venga impedito l’acceso se questa è occupata. 
+Il prologo consiste nel chiedere l’autorizzazione ad ogni processo prima di entrare in una sezione critica, affinché venga garantito l’uso esclusivo della risorsa se questa è libera, oppure venga impedito l’acceso se questa è occupata.
 \newline
 Nell’epilogo, invece, al completamento dell’azione il processo deve eseguire una sequenza di istruzioni per dichiarare libera la sezione critica. Le soluzioni possono essere:
 \begin{itemize}
@@ -790,13 +790,13 @@ Generalmente è realizzato dal nucleo del sistema operativo ed è un dato astrat
     while(!s);
     s--;
 \end{minted}
-\item \texttt{v(s)}: incrementa di 1 il valore del semaforo.  
+\item \texttt{v(s)}: incrementa di 1 il valore del semaforo.
     \begin{minted}{c}
         s++;
     \end{minted}
 \end{itemize}
 Essendo entrambe le operazioni \textbf{atomiche} (eseguibili in un solo ciclo di clock), il valore del semaforo viene modificato da un solo processo alla volta.
-Possiamo, quindi, avere due diversi funzionamenti:  
+Possiamo, quindi, avere due diversi funzionamenti:
 \begin{enumerate}
     \item \texttt{s = 0}: l’esecuzione di \texttt{p(s)} provoca l’attesa del processo che la invoca (semaforo rosso).
     \item \texttt{s > 0}: la chiamata di \texttt{p(s)} provoca il decremento di \texttt[s] e la continuazione dell’esecuzione (semaforo verde).
