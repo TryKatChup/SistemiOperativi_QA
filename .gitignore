@@ -1,23 +1,25 @@
+# LaTeX temporary files
 *.aux
-*.glo
-*.idx
 *.log
 *.toc
-*.ist
-*.acn
-*.acr
-*.alg
+*.fls
+
+# PDF output - usually a bad idea to keep this in Git
+*.pdf
+
+# Latexmk
+*.fdb_latexmk
+
+# SyncTeX
+*.synctex.gz
+
+# LaTeX Beamer
+*.snm
+*.vrb
+*.nav
+*.out
+
+# BibTeX
 *.bbl
 *.blg
-*.dvi
-*.glg
-*.gls
-*.ilg
-*.ind
-*.lof
-*.lot
-*.maf
-*.mtc
-*.mtc1
-*.out
-*.synctex.gz 
+
