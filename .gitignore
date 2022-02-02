@@ -23,3 +23,5 @@
 *.bbl
 *.blg
 
+# Minted
+_minted-main
