@@ -484,18 +484,14 @@ Ci sono diversi algoritmi il cui scopo è capire quale pagina sia la migliore da
 \begin{itemize}
     \item \emph{LFU} (Least Frequently Used): dealloca la pagina usata meno di frequente.\newline
     Per questa tecnica è necessario introdurre un contatore, che tenga conto del numero di accessi per ogni pagina.
-    \item \emph{FIFO}: dealloca la pagina caricata da più tempo (indipendentemente dal suo uso).
-In questo caso occorre memorizzare la cronologia dei caricamenti in memoria, o gestire una coda in cui ogni elemento rappresenta una pagina caricata in memoria.
+    \item \emph{FIFO}: dealloca la pagina caricata da più tempo (indipendentemente dal suo uso). In questo caso occorre memorizzare la cronologia dei caricamenti in memoria, o gestire una coda in cui ogni elemento rappresenta una pagina caricata in memoria.
         \item \emph{LRU} (Least Recently Used): dealloca la pagina usata meno di recente. Per implementare tale algoritmo occorre memorizzare la sequenza degli accessi alle pagine in memoria. Due possibili soluzioni:
     \begin{itemize}
-      \item \emph{Time stamping}: per ciascun elemento della tabella delle pagine esiste un campo che rappresenta l’istante dell’ultimo accesso in memoria.
-      \item \emph{Stack}: una struttura dati di tipo stack in cui ogni elemento rappresenta una pagina, ad ogni accesso ad una pagina l'elemento corrispondente si sposta nel top dello stack, mentre il bottom rappresenta la pagina LRU.
-      \end{itemize}
+        \item \emph{Time stamping}: per ciascun elemento della tabella delle pagine esiste un campo che rappresenta l’istante dell’ultimo accesso in memoria.
+        \item \emph{Stack}: una struttura dati di tipo stack in cui ogni elemento rappresenta una pagina, ad ogni accesso ad una pagina l'elemento corrispondente si sposta nel top dello stack, mentre il bottom rappresenta la pagina LRU.
+    \end{itemize}
 La gestione, in entrambi i casi, risulta essere costosa.
 \end{itemize}
-Occorre memorizzare la sequenza degli accessi alle pagine in memoria; viene utilizzato o un time stamping per ciascun elemento della tabella delle pagine, che rappresenta l’istante dell’ultimo accesso in memoria, oppure uno stack, in cui il bottom rappresenta la pagina LRU.
-\newline
-La gestione, in entrambi i casi, risulta essere costosa.
 \end{solution}
 \begin{problem}{14}
 Descrivere i metodi di accesso e di allocazione nel file system
