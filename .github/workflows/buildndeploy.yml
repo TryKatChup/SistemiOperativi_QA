@@ -22,7 +22,7 @@ jobs:
           post_compile: mkdir _site/ && mv main.pdf _site/index.pdf
 
       - name: Upload PDF file
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v1
 
   deploy:
     # Add a dependency to the build job
